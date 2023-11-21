@@ -9,7 +9,7 @@ const port = process.env.PORT;
 // Middleware to parse JSON requests
 app.use(express.json());
 
-const formInputRoutes = require('./routes/formInputs-routes');
+const formInputRoutes = require('./routes/formInputsRoutes/formInputs-routes');
 
 // Use the formInputRoutes for /formInputs endpoint
 app.use('/formInputs', formInputRoutes);

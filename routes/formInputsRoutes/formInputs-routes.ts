@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 
 const {
     getAllInputData
-} = require('../services/formInputServices/formInputs-services')
+} = require('../../services/formInputServices/formInputs-services')
 
 const router: Router = Router();
 

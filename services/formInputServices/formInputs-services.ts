@@ -1,4 +1,5 @@
 import { InputType } from "./formInputs-types";
+import * as nodemailer from "nodemailer";
 
 //types import
 const {
@@ -24,8 +25,20 @@ const {
     return InputData;
   }
   
+  const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, 
+      auth: {
+        user: 'project.start.an@gmail.com',
+        pass: 'eybhbzswksgqsmqq',
+      },
+  });
+  
+
+
   //Here is the endpoint for adding a new input to the local array InputData
-  const addNewInput = (email: string, mobilePhone: string, description: string)=>{
+  const addNewInput = async (email: string, mobilePhone: string, description: string)=>{
     const newInput: typeof InputType = {
       email,
       mobilePhone,
@@ -34,6 +47,21 @@ const {
   
     InputData.push(newInput);
     console.log(InputData)
+
+    // Send email
+        try {
+          const mailOptions = {
+            from: email,
+            to: "chernaevangel@gmail.com",
+            subject: 'New Input Received',
+            text: `A new input has been received:\n\nEmail: ${email}\nMobile Phone: ${mobilePhone}\nDescription: ${description}`,
+          };
+
+          const info = await transporter.sendMail(mailOptions);
+          console.log('Email sent:', info.messageId);
+        } catch (error) {
+          console.error('Error sending email:', error);
+  }
   }
 
 

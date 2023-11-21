@@ -13,6 +13,7 @@ describe('Endpoint Tests', () => {
   });
 
 
+  //Test endpoint test
   it('should respond with "Welcome to Express & TypeScript Server" at /', (done) => {
     request
       .get('/')

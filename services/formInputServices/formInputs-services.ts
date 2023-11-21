@@ -1,4 +1,4 @@
-
+import { InputType } from "./formInputs-types";
 
 //types import
 const {
@@ -6,7 +6,6 @@ const {
 } =require('./formInputs-types')
 
 
-  
   const InputData: Array<typeof InputType> = [
     { 
         email: "newemail@gmail.com", 
@@ -25,7 +24,18 @@ const {
     return InputData;
   }
   
+  //Here is the endpoint for adding a new input to the local array InputData
+  const addNewInput = (email: string, mobilePhone: string, description: string)=>{
+    const newInput: typeof InputType = {
+      email,
+      mobilePhone,
+      description,
+    };
+  
+    InputData.push(newInput);
+    console.log(InputData)
+  }
 
 
 
-export { getAllInputData};
+export { getAllInputData, addNewInput};

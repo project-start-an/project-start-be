@@ -1,23 +1,30 @@
-import express, { Express, Request, Response, Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const app: Application = express();
-const port = process.env.PORT;
+const createApp = (): Application => {
+  const app: Application = express();
 
-// Middleware to parse JSON requests
-app.use(express.json());
+  // Middleware to parse JSON requests
+  app.use(express.json());
 
-const formInputRoutes = require('./routes/formInputsRoutes/formInputs-routes');
+  const formInputRoutes = require('./routes/formInputsRoutes/formInputs-routes');
 
-// Use the formInputRoutes for /formInputs endpoint
-app.use('/formInputs', formInputRoutes);
+  // Use the formInputRoutes for /formInputs endpoint
+  app.use('/formInputs', formInputRoutes);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to Express & TypeScript Server');
-});
+  app.get('/', (req: Request, res: Response) => {
+    res.send('Welcome to Express & TypeScript Server');
+  });
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+  return app;
+};
+
+const startServer = (app: Application, port: string | number): void => {
+  app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+  });
+};
+
+export { createApp, startServer };

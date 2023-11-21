@@ -1,4 +1,4 @@
-import { add } from '../services/formInputs-services';
+import { add } from '../../services/formInputs-services';
 
 test('string with a single number should result in the number itself', () => {
     expect(add('1')).toBe(1);

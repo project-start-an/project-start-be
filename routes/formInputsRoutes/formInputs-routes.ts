@@ -32,10 +32,21 @@ router.post('/addNewInput', async (req: Request, res: Response, next: NextFuncti
             return res.status(400).json({ error: 'Missing required fields in the request body' });
         }
 
-        await addNewInput(email, mobilePhone, description);
-        await sendEmail(email, mobilePhone, description)
+        try {
+            await sendEmail(email, mobilePhone, description);
 
-        res.status(201).json({ message: 'Input added successfully' });
+            await addNewInput(email, mobilePhone, description);
+
+            res.status(201).json({ message: 'Input added successfully' });
+        } catch (sendEmailError: any) {
+            if (sendEmailError.message === 'Invalid email address' || sendEmailError.message === 'Invalid mobile phone number') {
+                res.status(400).json({ error: sendEmailError.message });
+            } else {
+                console.error('Error sending email:', sendEmailError.message);
+                res.status(500).json({ error: 'Error sending email' });
+            }
+        }
+
     } catch (error) {
         console.error('Error in addNewInput:', error);
         res.status(500).json({ error: 'Internal Server Error' });

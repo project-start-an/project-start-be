@@ -1,19 +1,33 @@
 const {
+    companyEmail,
     transporter
 }=require('./transport.setup')
 
 const sendEmail = async (email:string,mobilePhone: string, description:string)=>{
 
-      try {
-        const mailOptions = {
-          from: email,
-          to: "project.start.an@gmail.com",
-          subject: 'New Input Received',
-          text: `A new input has been received:\n\nEmail: ${email}\nMobile Phone: ${mobilePhone}\nDescription: ${description}`,
-        };
+      const emailRegex = /\S+@\S+\.\S+/;
+      const mobilePhoneRegex = /^\+\d{1,15}$/;
 
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent:', info.messageId);
+      if (!emailRegex.test(email)) {
+        throw new Error('Invalid email address');
+      }
+
+      if (!mobilePhoneRegex.test(mobilePhone)) {
+        throw new Error('Invalid mobile phone number');
+    }
+
+      try {
+          const mailOptions = {
+            from: email,
+            to: companyEmail,
+            subject: 'New Request Received',
+            text: `A new request has been received:\n\nRequestor Email: ${email}\nnRequestor Mobile Phone: ${mobilePhone}\nDescription of the request: ${description}`,
+            importance: 'high'
+          };
+
+          const info = await transporter.sendMail(mailOptions);
+          console.log('Email sent successfully!');
+
       } catch (error) {
           console.error('Error sending email:', error);
     }

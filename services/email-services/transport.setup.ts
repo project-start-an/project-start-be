@@ -1,5 +1,7 @@
 import * as nodemailer from "nodemailer";
 
+const companyEmail: string = "project.start.an@gmail.com";
+
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -10,4 +12,4 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export {transporter}
+export {companyEmail,transporter}

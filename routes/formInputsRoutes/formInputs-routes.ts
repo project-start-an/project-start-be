@@ -5,6 +5,10 @@ const {
     addNewInput
 } = require('../../services/formInputServices/formInputs-services')
 
+const {
+    sendEmail
+}= require('../../services/email-services/email-services')
+
 const router: Router = Router();
 
 //Get all inputed data endpoint
@@ -29,6 +33,7 @@ router.post('/addNewInput', async (req: Request, res: Response, next: NextFuncti
         }
 
         await addNewInput(email, mobilePhone, description);
+        await sendEmail(email, mobilePhone, description)
 
         res.status(201).json({ message: 'Input added successfully' });
     } catch (error) {

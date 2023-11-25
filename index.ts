@@ -1,10 +1,16 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors'; 
 
 dotenv.config();
 
 const createApp = (): Application => {
   const app: Application = express();
+
+  //HERE THE PATHS ENABLED SHOULD BE MORE LIMITED
+  app.use(cors({
+    origin: '*',
+  }));
 
   // Middleware to parse JSON requests
   app.use(express.json());

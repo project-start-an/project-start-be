@@ -36,9 +36,12 @@ const startServer = (app: Application, port: string | number): any => {
   return server;
 };
 
-const closeServer = (server: any): void => {
-  server.close(() => {
-    console.log('Server closed');
+const closeServer = (server: any): Promise<void> => {
+  return new Promise<void>((resolve) => {
+    server.close(() => {
+      console.log('Server closed');
+      resolve();
+    });
   });
 };
 

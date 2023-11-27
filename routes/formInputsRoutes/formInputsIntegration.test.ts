@@ -13,9 +13,12 @@ describe('Endpoint Tests', () => {
     request = supertest(app);
   });
 
-  afterAll(() => {
-    closeServer(server);
+  afterAll((done) => {
+    closeServer(server).then(() => {
+      done();
+    });
   });
+
 
 
   //Test endpoint test

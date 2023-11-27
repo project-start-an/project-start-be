@@ -1,15 +1,20 @@
-import { createApp, startServer } from '../../index';
+import { createApp, startServer, closeServer  } from '../../index';
 import supertest, { SuperTest, Test } from 'supertest';
 import { Express } from 'express';
 
 describe('Endpoint Tests', () => {
   let app: Express;
   let request: SuperTest<Test>;
+  let server: string;
 
   beforeAll(() => {
     app = createApp() as Express;
-    startServer(app, 8000);
-    request = supertest(app); 
+    server = startServer(app, 8000);
+    request = supertest(app);
+  });
+
+  afterAll(() => {
+    closeServer(server);
   });
 
 

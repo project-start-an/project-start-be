@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "start": "node dist/server.js",
     "dev": "nodemon server.ts",
-    "test": "jest  --forceExit"
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "",

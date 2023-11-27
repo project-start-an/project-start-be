@@ -27,10 +27,19 @@ const createApp = (): Application => {
   return app;
 };
 
-const startServer = (app: Application, port: string | number): void => {
-  app.listen(port, () => {
+const startServer = (app: Application, port: string | number): any => {
+  const server = app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
+  });
+
+  // Return the server instance
+  return server;
+};
+
+const closeServer = (server: any): void => {
+  server.close(() => {
+    console.log('Server closed');
   });
 };
 
-export { createApp, startServer };
+export { createApp, startServer, closeServer };

@@ -1,0 +1,19 @@
+node_modules
+
+# Docker
+.dockerignore
+.docker
+
+.vscode
+.git
+.gitignore
+
+# Markdown
+*.md
+
+# yml/yaml
+*.yml
+*.yaml
+
+.DS_Store
+npm-debug.log

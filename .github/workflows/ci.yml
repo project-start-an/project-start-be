@@ -84,9 +84,8 @@ jobs:
     #   env:
     #     ANSIBLE_STDOUT_CALLBACK: yaml
 
-    - name: Copy Ansible folder to runner
-      run: |
-        cp -r ansible $GITHUB_WORKSPACE
+    - name: Check for Ansible folder
+      run: ls
 
     - name: Run Ansible Playbook (Production)
       run: ansible-playbook -i ansible/inventory.ini ansible/prod/compose-deployment.yaml

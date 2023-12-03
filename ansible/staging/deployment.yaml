@@ -6,7 +6,7 @@
   tasks:
     - name: Copy Docker Compose file
       ansible.builtin.copy:
-        src: ./staging/docker-compose.yml
+        src: ./docker-compose.yml
         dest: /project-start-be-staging/
         mode: "0644"
 

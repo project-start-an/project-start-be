@@ -42,7 +42,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: project-start-an/project-start-be:latest
+          tags: ghcr.io/project-start-an/project-start-be:latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:

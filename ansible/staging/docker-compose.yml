@@ -1,6 +1,6 @@
 version: "3"
 services:
   pr-start-be:
-    image: ghcr.io/project-start-an/project-start-be:latest
+    image: ghcr.io/project-start-an/project-start-be:staging
     ports:
       - "8001:8000"

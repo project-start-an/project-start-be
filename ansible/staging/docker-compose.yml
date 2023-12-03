@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   pr-start-be:
     image: ghcr.io/project-start-an/project-start-be:latest

@@ -4,9 +4,47 @@ on:
   push:
     branches: ["main"]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   ci:
     uses: ./.github/workflows/ci.yml
+
+  deploy_docker:
+    needs: ["ci"]
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/project-start-an/project-start-be:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
   deploy:
     needs: ["ci"]
     runs-on: ubuntu-latest
@@ -14,10 +52,10 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
@@ -40,5 +78,5 @@ jobs:
       - name: Check for Ansible folder
         run: ls
 
-      - name: Run Ansible Playbook (Production)
+      - name: Run Ansible Playbook
         run: ansible-playbook -i ansible/inventory.ini ansible/prod/deployment.yaml

@@ -42,7 +42,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/project-start-an/project-start-be:latest
+          tags: ghcr.io/project-start-an/project-start-be:staging
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
@@ -78,5 +78,5 @@ jobs:
       - name: Check for Ansible folder
         run: ls
 
-      - name: Run Ansible Playbook (Production)
+      - name: Run Ansible Playbook
         run: ansible-playbook -i ansible/inventory.ini ansible/staging/deployment.yaml

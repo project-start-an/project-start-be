@@ -34,11 +34,7 @@ const {
       mobilePhone,
       description,
     };
-  
     InputData.push(newInput);
-    console.log(InputData)
-
-  
   }
 
 

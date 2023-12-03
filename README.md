@@ -3,6 +3,10 @@ The back-end service for project-start e-commerce
 
 ---
 
+Copy ENV vars from `.env.local`
+
+> cp .env.local .env
+
 ## API Docs:
 
 - You can import the API collection in Postman through clicking **Import** as shown bellow:

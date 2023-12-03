@@ -4,12 +4,19 @@ import cors from 'cors';
 
 dotenv.config();
 
+const BASE_URL = process.env.BASE_URL;
+const allowedOrigins = [
+  process.env.LOCAL_FE || '',
+  new RegExp(process.env.REVIEW_FE || ''),
+  process.env.PROD_FE || ''
+]
+
 const createApp = (): Application => {
   const app: Application = express();
 
   //HERE THE PATHS ENABLED SHOULD BE MORE LIMITED
   app.use(cors({
-    origin: '*',
+    origin: allowedOrigins
   }));
 
   // Middleware to parse JSON requests
@@ -29,7 +36,7 @@ const createApp = (): Application => {
 
 const startServer = (app: Application, port: string | number): any => {
   const server = app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Server is running at ${BASE_URL}`);
   });
 
   // Return the server instance

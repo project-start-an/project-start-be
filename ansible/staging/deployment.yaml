@@ -1,0 +1,17 @@
+---
+- name: Reploy Docker Compose Services
+  hosts: remote_servers
+  become: true
+
+  tasks:
+    - name: Copy Docker Compose file
+      ansible.builtin.copy:
+        src: ./docker-compose.yml
+        dest: /project-start-be-staging/
+        mode: "0644"
+
+    - name: Rebuild latest Docker Compose images
+      community.general.docker_compose:
+        project_src: /project-start-be-staging/
+        project_name: project-start-be-staging
+        pull: true

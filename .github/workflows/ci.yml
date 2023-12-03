@@ -1,5 +1,6 @@
 name: Main CI workflow
 
+# Based on: https://stackoverflow.com/a/71489231/5763649
 on: [workflow_call]
 
 jobs:

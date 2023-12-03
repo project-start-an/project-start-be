@@ -3,13 +3,12 @@ name: Deploy to production
 on:
   push:
     branches: ["main"]
-  workflow_run:
-    workflows: ["Main CI workflow"]
-    types:
-      - completed
 
 jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
   deploy:
+    needs: ["ci"]
     runs-on: ubuntu-latest
     environment: production
 
